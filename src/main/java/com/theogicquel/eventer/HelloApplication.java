@@ -29,6 +29,9 @@ public class HelloApplication extends Application {
         Button plusButton = new Button("+");
         Button minusButton = new Button("-");
         minusButton.setDisable(true);
+        Button razButton = new Button("R.A.Z.");
+        razButton.setDisable(true);
+
 
 
 
@@ -39,24 +42,37 @@ public class HelloApplication extends Application {
                 counterInt++;
                 countLabel.setText(""+counterInt);
                 minusButton.setDisable(false);
+                razButton.setDisable(false);
             }
         }));
 
         minusButton.setOnAction((new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(counterInt==0)
+                if(counterInt==1)
                 {
+                    counterInt=0;
                     minusButton.setDisable(true);
-                }else
-                {
-                    counterInt--;
-                    countLabel.setText(""+counterInt);
+                    razButton.setDisable(true);
                 }
 
+                if(counterInt>1)
+                {
+                    counterInt--;
+                }
+                countLabel.setText(""+counterInt);
             }
         }));
 
+        razButton.setOnAction((new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                counterInt=0;
+                countLabel.setText(""+counterInt);
+                minusButton.setDisable(true);
+                razButton.setDisable(true);
+            }
+        }));
 
 
 
@@ -78,11 +94,10 @@ public class HelloApplication extends Application {
         mainVbox.setAlignment(Pos.CENTER);
 
 
-        Button razButton = new Button("RAZ");
         mainVbox.getChildren().add(countHBox);
         mainVbox.getChildren().add(razButton);
 
-        stage.setTitle("Message");
+        stage.setTitle("Compteur");
         Scene scene = new Scene(mainVbox);
         stage.setWidth(globalWidth);
         stage.setScene(scene);
